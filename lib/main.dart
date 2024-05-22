@@ -1,11 +1,15 @@
 // ignore_for_file: camel_case_types, non_constant_identifier_names
 
+import 'package:erp_homepage/calendar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'dart:io';
 import 'dart:convert';
-import 'package:flutter_neat_and_clean_calendar/flutter_neat_and_clean_calendar.dart';
+import 'welcome_card.dart';
+import 'calendar.dart';
+
 // import 'icons.dart';
 
 void main() {
@@ -20,8 +24,8 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: jsonSidebar(),
+    return MaterialApp(
+      home: DashboardContents(),
     );
   }
 }
@@ -66,7 +70,7 @@ class jsonCard {
 }
 
 class jsonSidebarCard extends StatelessWidget {
-  const jsonSidebarCard({
+  jsonSidebarCard({
     super.key,
     required this.jCard,
     required this.index,
@@ -76,15 +80,21 @@ class jsonSidebarCard extends StatelessWidget {
   final jsonCard jCard;
   final int index;
   final IndexCallBack onPressedSidebarCard;
+  bool pressed = false;
 
   @override
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.indigo,
-      ),
-      onPressed: () => onPressedSidebarCard(index),
+      style: !pressed
+          ? ElevatedButton.styleFrom(
+              backgroundColor: Colors.indigo,
+            )
+          : ElevatedButton.styleFrom(backgroundColor: Colors.white),
+      onPressed: () {
+        pressed = !pressed;
+        onPressedSidebarCard(index);
+      },
       child: Column(
         children: [
           const Icon(
@@ -94,10 +104,12 @@ class jsonSidebarCard extends StatelessWidget {
           const SizedBox(
             width: 10,
           ),
-          Text(
-            jCard.resource_name,
-            style: const TextStyle(color: Colors.white),
-          )
+          Text(jCard.resource_name,
+              style: const TextStyle(
+                color: Colors.white,
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis)
         ],
       ),
     );
@@ -117,22 +129,6 @@ class _jsonSidebarState extends State<jsonSidebar> {
   final kreaLogo = File('resources/kreaLogo.png');
   int currentCardSelection = 0;
   bool maximizeSidebar = false;
-  final List<NeatCleanCalendarEvent> _eventList = [
-    NeatCleanCalendarEvent('MultiDay Event A',
-        startTime: DateTime(DateTime.now().year, DateTime.now().month,
-            DateTime.now().day, 10, 0),
-        endTime: DateTime(DateTime.now().year, DateTime.now().month,
-            DateTime.now().day + 2, 12, 0),
-        color: Colors.orange,
-        isMultiDay: true),
-    NeatCleanCalendarEvent('Allday Event B',
-        startTime: DateTime(DateTime.now().year, DateTime.now().month,
-            DateTime.now().day - 2, 14, 30),
-        endTime: DateTime(DateTime.now().year, DateTime.now().month,
-            DateTime.now().day + 2, 15, 0),
-        color: Colors.pink,
-        isAllDay: true),
-  ];
 
   @override
   void initState() {
@@ -182,7 +178,7 @@ class _jsonSidebarState extends State<jsonSidebar> {
       body: Row(
         children: [
           Container(
-            width: 250,
+            width: 150,
             color: Colors.indigo,
             child: ListView(
               children: [
@@ -210,127 +206,93 @@ class _jsonSidebarState extends State<jsonSidebar> {
             ),
           ),
           Expanded(
-            child: Stack(children: [
-              Row(
-                children: [
-                  Container(width: 200, child: TaskList(noOfTasks: 3)),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Container(
-                    width: 400,
-
-                    // child: FittedBox(
-                    child: Calendar(
-                      startOnMonday: true,
-                      weekDays: const [
-                        'Mo',
-                        'Tu',
-                        'We',
-                        'Th',
-                        'Fr',
-                        'Sa',
-                        'Su'
-                      ],
-                      eventsList: _eventList,
-                      isExpandable: true,
-                      eventDoneColor: Colors.green,
-                      selectedColor: Colors.pink,
-                      selectedTodayColor: Colors.red,
-                      todayColor: Colors.blue,
-                      eventColor: null,
-                      locale: 'en_EN',
-                      todayButtonText: 'Go to Today',
-                      allDayEventText: 'All day event',
-                      multiDayEndText: 'Multi day event',
-                      isExpanded: true,
-                      expandableDateFormat: 'EEEE, dd. MMMM yyyy',
-                      datePickerType: DatePickerType.date,
-                      dayOfWeekStyle: const TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w800,
-                          fontSize: 11),
-                    ),
-                  ),
-                  // ),
-                ],
-              ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: () {
-                  if (maximizeSidebar &&
-                      findChildren(l1Cards[currentCardSelection]).isNotEmpty) {
-                    return Container(
-                      width: 160,
-                      color: Colors.indigo,
-                      child: ListView(
+            child: Scaffold(
+              body: Stack(children: [
+                // INSERT welcome card etc.
+                Column(
+                  children: [
+                    AppBar(
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          for (jsonCard l2
-                              in findChildren(l1Cards[currentCardSelection]))
-                            Text(
-                              l2.resource_name,
-                              style: const TextStyle(color: Colors.white),
-                            )
+                          const Text("Dashboard"),
+                          Container(
+                            // Search box
+                            width: 150,
+                            child: TextField(
+                              decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.all(15),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(100),
+                                ),
+                                label: const Row(
+                                  children: [
+                                    Icon(Icons.search),
+                                    SizedBox(
+                                      width: 5,
+                                    ),
+                                    Text("Search"),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              IconButton(
+                                onPressed: () {},
+                                icon: const Icon(Icons.refresh),
+                              ),
+                              IconButton(
+                                onPressed: () {},
+                                icon: const Icon(Icons.notifications),
+                              ),
+                              IconButton(
+                                onPressed: () {},
+                                icon: const Icon(Icons.person),
+                              ),
+                            ],
+                          )
                         ],
                       ),
-                    );
-                  }
-                }(),
-              ),
-            ]),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class TaskList extends StatefulWidget {
-  const TaskList({super.key, required this.noOfTasks});
-
-  final int noOfTasks;
-
-  @override
-  State<TaskList> createState() => _TaskListState();
-}
-
-class _TaskListState extends State<TaskList> {
-  List<bool> checkBoxVal = [];
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    List<bool> vals = [for (int i = 0; i < widget.noOfTasks; i++) false];
-    checkBoxVal = vals;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
-        children: [
-          const Center(
-            child: Text("Task List"),
-          ),
-          const Divider(
-            thickness: 2,
-          ),
-          for (int i = 0; i < widget.noOfTasks; i++)
-            CheckboxListTile(
-              value: checkBoxVal[i],
-              onChanged: (bool? value) {
-                setState(() {
-                  checkBoxVal[i] = value!;
-                });
-              },
-              title: (!checkBoxVal[i])
-                  ? Text("Item $i")
-                  : Text(
-                      "Item $i",
-                      style: TextStyle(decoration: TextDecoration.lineThrough),
                     ),
-            )
+                    Container(
+                      height: 600,
+                      width: 600,
+                      child: FittedBox(
+                        child: DashboardContents(),
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ],
+                ),
+                // Pop up sidebar
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: () {
+                    if (maximizeSidebar &&
+                        findChildren(l1Cards[currentCardSelection])
+                            .isNotEmpty) {
+                      return Container(
+                        width: 150,
+                        color: Colors.indigo,
+                        child: ListView(
+                          children: [
+                            for (jsonCard l2
+                                in findChildren(l1Cards[currentCardSelection]))
+                              Text(
+                                l2.resource_name,
+                                style: const TextStyle(color: Colors.white),
+                              )
+                          ],
+                        ),
+                      );
+                    }
+                  }(),
+                ),
+              ]),
+            ),
+          ),
         ],
       ),
     );
