@@ -5,7 +5,6 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'dart:io';
-import 'dart:convert';
 import 'main.dart';
 
 class WelcomeCard extends StatelessWidget {
