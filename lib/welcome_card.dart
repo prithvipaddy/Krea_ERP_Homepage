@@ -7,20 +7,19 @@ import 'package:flutter/widgets.dart';
 import 'dart:io';
 import 'dart:convert';
 import 'main.dart';
-import 'calendar.dart';
 
 class WelcomeCard extends StatelessWidget {
-  const WelcomeCard({super.key, required this.name});
-
+  WelcomeCard({super.key, required this.name});
+  final File img = File("resources/WelcomeCardImg.png");
   final String name;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width / 1.5,
-      height: MediaQuery.of(context).size.height / 3,
+      width: MediaQuery.of(context).size.width / 1.75,
+      height: MediaQuery.of(context).size.height / 3.5,
       decoration: const BoxDecoration(
-        color: Colors.lightGreen,
+        color: Color.fromARGB(255, 128, 205, 228),
         borderRadius: BorderRadius.all(
           Radius.circular(10),
         ),
@@ -28,7 +27,7 @@ class WelcomeCard extends StatelessWidget {
       child: FittedBox(
         fit: BoxFit.contain,
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(10.0),
           child: Row(
             mainAxisAlignment:
                 MainAxisAlignment.start, //WHY DOES THIS NOT REFLECT???
@@ -50,7 +49,7 @@ class WelcomeCard extends StatelessWidget {
                     height: 20,
                   ),
                   Container(
-                    width: 250,
+                    width: MediaQuery.of(context).size.width / 4,
                     child: const Text(
                       "Welcome to the ERP Management System of KREA University. Access all your essential apps and resources at one place.",
                     ),
@@ -58,17 +57,26 @@ class WelcomeCard extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: const Text("Learn More"),
+                  GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      width: 80,
+                      height: 25,
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 0, 71, 129),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          "Learn More",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
-              Container(
-                color: Colors.amber,
-                width: 100,
-                height: 100,
-              ),
+              Image.file(img),
             ],
           ),
         ),
@@ -101,7 +109,7 @@ class _TaskListState extends State<TaskList> {
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height / 3,
-      width: MediaQuery.of(context).size.width / 4,
+      width: MediaQuery.of(context).size.width / 3.5,
       child: ListView(
         children: [
           const Center(
@@ -132,46 +140,39 @@ class _TaskListState extends State<TaskList> {
 }
 
 class EssentialWidgets extends StatefulWidget {
-  const EssentialWidgets({super.key});
+  const EssentialWidgets({
+    super.key,
+    required this.allCards,
+    required this.l1Cards,
+  });
+  final List<jsonCard> l1Cards;
+  final List<jsonCard> allCards;
 
   @override
   State<EssentialWidgets> createState() => _EssentialWidgetsState();
 }
 
 class _EssentialWidgetsState extends State<EssentialWidgets> {
-  List<jsonCard> l1Cards = [];
-  List<jsonCard> allCards = [];
-
-  void readJson() async {
-    String rawJson = await File("resources/jsonformatter.txt").readAsString();
-    List<jsonCard> l1 = [];
-    List<jsonCard> all = [];
-    for (Map<String, dynamic> i in jsonDecode(rawJson)) {
-      all.add(jsonCard.fromJson(i));
-    }
-    for (jsonCard elem in all) {
-      if (elem.parent_id == 0) {
-        l1.add(elem);
-      }
-    }
-    setState(
-      () {
-        l1Cards = l1;
-        allCards = all;
-      },
-    );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    readJson();
-  }
-
   @override
   Widget build(BuildContext context) {
-    double widgetHeight = MediaQuery.of(context).size.height / 3;
-    double widgetWidth = MediaQuery.of(context).size.width / 4;
+    double widgetWidth = MediaQuery.of(context).size.width / 1.75;
+    double widgetHeight = MediaQuery.of(context).size.height / 4;
+    List<bool> added = [for (int i = 0; i < 10; i++) false];
+
+    void onAddPressed(int i) {
+      setState(() {
+        added[i] = !added[i];
+      });
+    }
+
+    initState() {
+      for (int i = 0; i < 8; i++) {
+        setState(() {
+          added[i] = true;
+        });
+      }
+    }
+
     return Container(
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black),
@@ -180,45 +181,90 @@ class _EssentialWidgetsState extends State<EssentialWidgets> {
       height: widgetHeight,
       width: widgetWidth,
       child: FittedBox(
-        fit: BoxFit.cover,
+        fit: BoxFit.contain,
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
-              const Text("Access all your essential apps at one place"),
+              Container(
+                height: MediaQuery.of(context).size.height / 40,
+                width: MediaQuery.of(context).size.width / 1.75,
+                child: const Text(
+                    "Access all your essential widgets at one place"),
+              ),
               const Divider(),
-              Row(
-                children: [
-                  Container(
-                    width: widgetWidth /
-                        2.3, // DOES THIS NOT RESPOND TO CHANGES IN SCREEN SIZE???
-                    child: FittedBox(
-                      fit: BoxFit.contain,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          for (int i = 0; i < 5; i++)
-                            Padding(
-                              padding: const EdgeInsets.all(2.0),
-                              child: EssentialWidgetButtons(
-                                  buttonName: allCards[i].resource_name),
-                            )
-                        ],
+              Container(
+                width: MediaQuery.of(context).size.width / 1.75,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Flexible(
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Container(
+                          // width: MediaQuery.of(context).size.width / 20,
+                          // height: MediaQuery.of(context).size.height / 50,
+                          child: FittedBox(
+                            fit: BoxFit.contain,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                for (int i = 0; i < 5; i++)
+                                  Padding(
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: widget.allCards.isNotEmpty
+                                        ? EssentialWidgetButtons(
+                                            buttonName: widget
+                                                .allCards[i].resource_name)
+                                        : const Text("Loading..."),
+                                  )
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      for (int i = 5; i < 10; i++)
-                        Padding(
-                          padding: const EdgeInsets.all(2.0),
-                          child: EssentialWidgetButtons(
-                              buttonName: allCards[i].resource_name),
-                        )
-                    ],
-                  ),
-                ],
+                    Flexible(
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Container(
+                          // width: widgetWidth /
+                          //     5, // DOES THIS NOT RESPOND TO CHANGES IN SCREEN SIZE???
+                          // width: MediaQuery.of(context).size.width / 20,
+                          // height: MediaQuery.of(context).size.height / 50,
+                          child: FittedBox(
+                            fit: BoxFit.contain,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                for (int i = 5; i < 10; i++)
+                                  Padding(
+                                      padding: const EdgeInsets.all(2.0),
+                                      child: () {
+                                        if (widget.allCards.isNotEmpty &&
+                                            added[i]) {
+                                          return EssentialWidgetButtons(
+                                              buttonName: widget
+                                                  .allCards[i].resource_name);
+                                        } else if (widget.allCards.isNotEmpty &&
+                                            !added[i]) {
+                                          return AddEssentialWidget(
+                                            onPressed:
+                                                onAddPressed, // why is the widget not changing on state change???
+                                            i: i,
+                                          );
+                                        } else {
+                                          return const Text("Loading...");
+                                        }
+                                      }())
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -282,31 +328,106 @@ class _EssentialWidgetButtonsState extends State<EssentialWidgetButtons> {
   }
 }
 
+typedef BoolCallBack = void Function(int i);
+
+class AddEssentialWidget extends StatelessWidget {
+  const AddEssentialWidget({
+    super.key,
+    required this.onPressed,
+    required this.i,
+  });
+  final BoolCallBack onPressed;
+  final int i;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              color: Colors.blue,
+            ),
+            child: const Icon(Icons.add),
+          ),
+          const SizedBox(
+            width: 5,
+          ),
+          const Text("Additional Widget"),
+        ],
+      ),
+      onTap: () {
+        onPressed(i);
+      },
+    );
+  }
+}
+
+class UpcomingEvents extends StatelessWidget {
+  const UpcomingEvents({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(),
+      ),
+      width: MediaQuery.of(context).size.width / 3.5,
+      height: MediaQuery.of(context).size.height / 4,
+      child: Row(
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width / 10,
+            color: Colors.black,
+          ),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Text("Upcoming Events"),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class DashboardContents extends StatelessWidget {
-  const DashboardContents({super.key});
+  DashboardContents({super.key, required this.allCards, required this.l1Cards});
+  final List<jsonCard> l1Cards;
+  final List<jsonCard> allCards;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Row(
         children: [
-          const Column(
+          Column(
             children: [
               WelcomeCard(
                 name: "Full Name",
               ),
-              SizedBox(
-                width: 10,
+              const SizedBox(
+                height: 10,
               ),
-              Row(
+              EssentialWidgets(
+                allCards: allCards,
+                l1Cards: l1Cards,
+              ),
+              const Row(
                 children: [
-                  TaskList(
-                    noOfTasks: 3,
-                  ),
+                  UpcomingEvents(),
                   SizedBox(
                     width: 10,
                   ),
-                  EssentialWidgets(),
+                  TaskList(
+                    noOfTasks: 3,
+                  ),
                 ],
               ),
             ],

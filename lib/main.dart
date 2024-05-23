@@ -17,7 +17,6 @@ void main() {
 }
 
 typedef IndexCallBack = void Function(int index);
-typedef BoolCallBack = void Function(bool val);
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
@@ -25,7 +24,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: DashboardContents(),
+      home: jsonSidebar(),
     );
   }
 }
@@ -85,32 +84,30 @@ class jsonSidebarCard extends StatelessWidget {
   @override
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: !pressed
-          ? ElevatedButton.styleFrom(
-              backgroundColor: Colors.indigo,
-            )
-          : ElevatedButton.styleFrom(backgroundColor: Colors.white),
-      onPressed: () {
-        pressed = !pressed;
-        onPressedSidebarCard(index);
-      },
-      child: Column(
-        children: [
-          const Icon(
-            Icons.star,
-            color: Colors.lightBlue,
-          ), //CHANGE THIS,
-          const SizedBox(
-            width: 10,
-          ),
-          Text(jCard.resource_name,
-              style: const TextStyle(
-                color: Colors.white,
-              ),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis)
-        ],
+    return Container(
+      color: const Color.fromARGB(255, 4, 85, 151),
+      child: InkWell(
+        onTap: () {
+          pressed = !pressed;
+          onPressedSidebarCard(index);
+        },
+        child: Column(
+          children: [
+            const Icon(
+              Icons.star,
+              color: Colors.lightBlue,
+            ), //CHANGE THIS,
+            const SizedBox(
+              width: 10,
+            ),
+            Text(jCard.resource_name,
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis)
+          ],
+        ),
       ),
     );
   }
@@ -178,7 +175,7 @@ class _jsonSidebarState extends State<jsonSidebar> {
       body: Row(
         children: [
           Container(
-            width: 150,
+            width: 100,
             color: Colors.indigo,
             child: ListView(
               children: [
@@ -189,16 +186,36 @@ class _jsonSidebarState extends State<jsonSidebar> {
                     index: i,
                     onPressedSidebarCard: onPressedSidebarButton,
                   ),
-                ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        maximizeSidebar = !maximizeSidebar;
-                      });
-                    },
-                    child: Column(children: [
-                      const Icon(Icons.menu),
-                      Text(maximizeSidebar ? "Close" : "Open"),
-                    ]))
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: maximizeSidebar
+                          ? Colors.white
+                          : const Color.fromARGB(255, 4, 85, 151)),
+                  child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          maximizeSidebar = !maximizeSidebar;
+                        });
+                      },
+                      child: Column(children: [
+                        const Icon(Icons.menu),
+                        () {
+                          if (maximizeSidebar) {
+                            return const Text(
+                              "Close",
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 4, 85, 151)),
+                            );
+                          } else {
+                            return const Text(
+                              "Open",
+                              style: TextStyle(color: Colors.white),
+                            );
+                          }
+                        }(),
+                      ])),
+                )
                 //Text(
                 // i.cardName,
                 // style: const TextStyle(color: Colors.white),
@@ -256,12 +273,13 @@ class _jsonSidebarState extends State<jsonSidebar> {
                         ],
                       ),
                     ),
-                    Container(
-                      height: 600,
-                      width: 600,
-                      child: FittedBox(
-                        child: DashboardContents(),
-                        fit: BoxFit.contain,
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: DashboardContents(
+                          allCards: allCards,
+                          l1Cards: l1Cards,
+                        ),
                       ),
                     ),
                   ],
