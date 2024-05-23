@@ -1,5 +1,6 @@
 // ignore_for_file: camel_case_types, non_constant_identifier_names
 
+import 'package:erp_homepage/onboarding.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -275,10 +276,11 @@ class _jsonSidebarState extends State<jsonSidebar> {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
-                        child: DashboardContents(
-                          allCards: allCards,
-                          l1Cards: l1Cards,
-                        ),
+                        // child: DashboardContents(
+                        //   allCards: allCards,
+                        //   l1Cards: l1Cards,
+                        // ),
+                        child: OnboardingScreen(),
                       ),
                     ),
                   ],
