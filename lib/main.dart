@@ -188,10 +188,11 @@ class _jsonSidebarState extends State<jsonSidebar> {
                   ),
                 Container(
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: maximizeSidebar
-                          ? Colors.white
-                          : const Color.fromARGB(255, 4, 85, 151)),
+                    borderRadius: BorderRadius.circular(10),
+                    color: maximizeSidebar
+                        ? Colors.white
+                        : const Color.fromARGB(255, 4, 85, 151),
+                  ),
                   child: InkWell(
                       onTap: () {
                         setState(() {
