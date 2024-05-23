@@ -9,7 +9,21 @@ class OnboardingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: TextEntryBox(boxName: "First name", requiredBox: true),
+        child: Row(
+          children: [
+            TextEntryBox(
+              boxName: "First name",
+              requiredBox: true,
+            ),
+            SizedBox(
+              width: 20,
+            ),
+            TextEntryBox(
+              boxName: "Last name",
+              requiredBox: false,
+            ),
+          ],
+        ),
       ),
     );
   }
