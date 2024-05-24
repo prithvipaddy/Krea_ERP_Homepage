@@ -19,13 +19,7 @@ class Dropdown extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        () {
-          if (requiredBox) {
-            return Text("$boxName*");
-          } else {
-            return Text(boxName);
-          }
-        }(),
+        requiredBox ? Text("$boxName*") : Text(boxName),
         SizedBox(
           height: 14,
         ),
@@ -66,13 +60,7 @@ class TextEntryBox extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          () {
-            if (requiredBox) {
-              return Text("$boxName*");
-            } else {
-              return Text(boxName);
-            }
-          }(),
+          requiredBox ? Text("$boxName*") : Text(boxName),
           SizedBox(
             height: 10,
           ),
