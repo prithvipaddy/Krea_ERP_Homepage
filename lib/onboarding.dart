@@ -12,30 +12,39 @@ class OnboardingScreen extends StatelessWidget {
       body: Center(
         child: Form(
           key: formKey,
-          child: Row(
+          child: GridView(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              crossAxisSpacing: 50,
+            ),
             children: [
               TextEntryBox(
                 boxName: "First name",
                 requiredBox: true,
               ),
-              SizedBox(
-                width: 20,
-              ),
               TextEntryBox(
                 boxName: "Last name",
                 requiredBox: false,
               ),
+              for (int i = 0; i < 10; i++)
+                TextEntryBox(boxName: "Box $i", requiredBox: true),
               Container(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(20),
                   color: const Color.fromARGB(255, 4, 85, 151),
                 ),
-                width: 200,
+                width: 100,
+                height: 50,
                 child: InkWell(
                   onTap: () {
                     if (formKey.currentState!.validate()) {}
                   },
-                  child: Text("Save"),
+                  child: const Center(
+                    child: Text(
+                      "Save",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
                 ),
               )
             ],
