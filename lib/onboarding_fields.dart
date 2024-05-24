@@ -4,13 +4,43 @@ import 'package:get/get.dart';
 import 'package:animated_custom_dropdown/custom_dropdown.dart';
 
 class Dropdown extends StatelessWidget {
-  const Dropdown({super.key});
+  const Dropdown({
+    super.key,
+    required this.boxName,
+    required this.requiredBox,
+    required this.items,
+  });
+  final String boxName;
+  final bool requiredBox;
+  final List<dynamic> items;
 
   @override
   Widget build(BuildContext context) {
-    return CustomDropdown(
-      items: [1, 2, 3],
-      onChanged: null,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        () {
+          if (requiredBox) {
+            return Text("$boxName*");
+          } else {
+            return Text(boxName);
+          }
+        }(),
+        SizedBox(
+          height: 14,
+        ),
+        CustomDropdown(
+          items: items,
+          onChanged: null,
+          hintText: "Please Select",
+          decoration: CustomDropdownDecoration(
+            closedBorderRadius: BorderRadius.circular(10),
+            closedBorder: Border.all(color: Colors.black),
+            expandedBorderRadius: BorderRadius.circular(10),
+            expandedBorder: Border.all(color: Colors.indigo),
+          ),
+        ),
+      ],
     );
   }
 }
@@ -32,6 +62,7 @@ class TextEntryBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       //width: MediaQuery.of(context).size.width / 3,
+      height: 200,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

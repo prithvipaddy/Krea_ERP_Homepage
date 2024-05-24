@@ -19,6 +19,7 @@ class OnboardingScreen extends StatelessWidget {
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
               crossAxisSpacing: 50,
+              mainAxisSpacing: 5,
             ),
             children: [
               TextEntryBox(
@@ -31,7 +32,11 @@ class OnboardingScreen extends StatelessWidget {
                 requiredBox: false,
                 validator: (val) => controller.validateRequiredField(val),
               ),
-              Dropdown(),
+              const Dropdown(
+                boxName: "Gender",
+                requiredBox: true,
+                items: [1, 2, 3],
+              ),
               for (int i = 0; i < 10; i++)
                 TextEntryBox(
                   boxName: "Box $i",
@@ -43,7 +48,7 @@ class OnboardingScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                   color: const Color.fromARGB(255, 4, 85, 151),
                 ),
-                width: 100,
+                width: 10,
                 height: 50,
                 child: InkWell(
                   onTap: () {
