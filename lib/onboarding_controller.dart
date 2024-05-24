@@ -11,6 +11,13 @@ class InputController extends GetxController {
     return null;
   }
 
+  validateEmail(String? pNum) {
+    if (!GetUtils.isEmail(pNum ?? '')) {
+      return 'This is not a valid phone number.';
+    }
+    return null;
+  }
+
   validateRequiredField(String? text) {
     if (GetUtils.isNullOrBlank(text ?? " ") == true) {
       return "This is a required field";

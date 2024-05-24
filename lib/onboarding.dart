@@ -32,7 +32,7 @@ class OnboardingScreen extends StatelessWidget {
                 requiredBox: false,
                 validator: (val) => controller.validateRequiredField(val),
               ),
-              const Dropdown(
+              Dropdown(
                 boxName: "Gender",
                 requiredBox: true,
                 items: [1, 2, 3],
@@ -43,6 +43,7 @@ class OnboardingScreen extends StatelessWidget {
                   requiredBox: true,
                   validator: (val) => controller.validateRequiredField(val),
                 ),
+              Dropdown(boxName: "test", requiredBox: true, items: ["a", "b"]),
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:animated_custom_dropdown/custom_dropdown.dart';
 
 class Dropdown extends StatelessWidget {
-  const Dropdown({
+  Dropdown({
     super.key,
     required this.boxName,
     required this.requiredBox,
@@ -13,6 +13,7 @@ class Dropdown extends StatelessWidget {
   final String boxName;
   final bool requiredBox;
   final List<dynamic> items;
+  final InputController controller = Get.find<InputController>();
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +34,7 @@ class Dropdown extends StatelessWidget {
             expandedBorderRadius: BorderRadius.circular(10),
             expandedBorder: Border.all(color: Colors.indigo),
           ),
+          validator: (text) => controller.validateRequiredField(text),
         ),
       ],
     );
