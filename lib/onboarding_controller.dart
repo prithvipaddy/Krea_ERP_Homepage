@@ -1,1 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class InputController extends GetxController {
+  final formKey = GlobalKey<FormState>();
+
+  validatePhoneNum(String? pNum) {
+    if (!GetUtils.isPhoneNumber(pNum ?? '')) {
+      return 'This is not a valid phone number.';
+    }
+    return null;
+  }
+
+  validateRequiredField(String? text) {
+    if (GetUtils.isNullOrBlank(text ?? " ") == true) {
+      return "This is a required field";
+    }
+    return null;
+  }
+
+  onSave() {
+    if (formKey.currentState!.validate()) {
+      Get.snackbar(
+        "Success",
+        "Draft saved successfuly",
+        colorText: Colors.white,
+        backgroundColor: Colors.green,
+      );
+    } else {
+      Get.snackbar(
+        "Fail",
+        "There are incomplete fields",
+        colorText: Colors.white,
+        backgroundColor: Colors.red,
+      );
+    }
+  }
+}
