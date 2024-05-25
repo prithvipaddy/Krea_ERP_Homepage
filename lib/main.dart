@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'dart:io';
 import 'dart:convert';
 import 'welcome_card.dart';
+import 'onboarding_stepper.dart';
 
 // import 'icons.dart';
 
@@ -24,7 +25,14 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      home: jsonSidebar(),
+      // home: jsonSidebar(
+      //   section: OnboardingForm(),
+      // ),
+      home: Container(
+        width: MediaQuery.of(context).size.width,
+        // height: MediaQuery.of(context).size.height,
+        child: StatelessStepper(),
+      ),
     );
   }
 }
@@ -115,7 +123,11 @@ class jsonSidebarCard extends StatelessWidget {
 }
 
 class jsonSidebar extends StatefulWidget {
-  const jsonSidebar({super.key});
+  const jsonSidebar({
+    super.key,
+    required this.section,
+  });
+  final Widget section;
 
   @override
   State<jsonSidebar> createState() => _jsonSidebarState();
@@ -282,7 +294,7 @@ class _jsonSidebarState extends State<jsonSidebar> {
                         //   allCards: allCards,
                         //   l1Cards: l1Cards,
                         // ),
-                        child: OnboardingScreen(),
+                        child: widget.section,
                       ),
                     ),
                   ],

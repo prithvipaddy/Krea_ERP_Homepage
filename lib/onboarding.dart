@@ -5,7 +5,16 @@ import 'package:flutter/material.dart';
 import 'onboarding_controller.dart';
 
 class OnboardingScreen extends StatelessWidget {
-  OnboardingScreen({super.key});
+  const OnboardingScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
+  }
+}
+
+class OnboardingForm extends StatelessWidget {
+  OnboardingForm({super.key});
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final controller = Get.put(InputController());
 

@@ -4,21 +4,21 @@ import 'package:get/get.dart';
 class InputController extends GetxController {
   final formKey = GlobalKey<FormState>();
 
-  validatePhoneNum(String? pNum) {
+  validatePhoneNum(dynamic? pNum) {
     if (!GetUtils.isPhoneNumber(pNum ?? '')) {
       return 'This is not a valid phone number.';
     }
     return null;
   }
 
-  validateEmail(String? pNum) {
+  validateEmail(dynamic? pNum) {
     if (!GetUtils.isEmail(pNum ?? '')) {
       return 'This is not a valid phone number.';
     }
     return null;
   }
 
-  validateRequiredField(String? text) {
+  validateRequiredField(dynamic? text) {
     if (GetUtils.isNullOrBlank(text ?? " ") == true) {
       return "This is a required field";
     }

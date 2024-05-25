@@ -41,6 +41,28 @@ class Dropdown extends StatelessWidget {
   }
 }
 
+class Dropdown2 extends StatelessWidget {
+  Dropdown2({
+    super.key,
+    required this.boxName,
+    required this.requiredBox,
+    required this.items,
+  });
+  final String boxName;
+  final bool requiredBox;
+  final List<DropdownMenuItem<dynamic>> items;
+  final InputController controller = Get.find<InputController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton(
+      value: items.first,
+      items: items,
+      onChanged: null,
+    );
+  }
+}
+
 class TextEntryBox extends StatelessWidget {
   TextEntryBox({
     super.key,
