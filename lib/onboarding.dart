@@ -16,7 +16,8 @@ class OnboardingScreen extends StatelessWidget {
 class OnboardingForm extends StatelessWidget {
   OnboardingForm({super.key});
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final controller = Get.put(InputController());
+  final inputController = Get.put(InputController());
+  final filePickController = Get.put(FilePickerController());
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class OnboardingForm extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(24.0),
           child: Form(
-            key: controller.formKey,
+            key: inputController.formKey,
             child: GridView(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 3,
@@ -43,12 +44,10 @@ class OnboardingForm extends StatelessWidget {
                 TextEntryBox(
                   boxName: "First name",
                   requiredBox: true,
-                  validator: (pNum) => controller.validatePhoneNum(pNum),
                 ),
                 TextEntryBox(
                   boxName: "Last name",
                   requiredBox: false,
-                  validator: (val) => controller.validateRequiredField(val),
                 ),
                 Dropdown(
                   boxName: "Gender",
@@ -59,9 +58,9 @@ class OnboardingForm extends StatelessWidget {
                   TextEntryBox(
                     boxName: "Box $i",
                     requiredBox: true,
-                    validator: (val) => controller.validateRequiredField(val),
                   ),
                 Dropdown(boxName: "test", requiredBox: true, items: ["a", "b"]),
+                FilePickerBox(boxName: "file pick test", requiredBox: true),
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
@@ -71,7 +70,7 @@ class OnboardingForm extends StatelessWidget {
                   height: 50,
                   child: InkWell(
                     onTap: () {
-                      controller.onSave();
+                      inputController.onSave();
                     },
                     child: const Center(
                       child: Text(

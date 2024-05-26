@@ -1,24 +1,25 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class InputController extends GetxController {
   final formKey = GlobalKey<FormState>();
 
-  validatePhoneNum(dynamic? pNum) {
+  validatePhoneNum(dynamic pNum) {
     if (!GetUtils.isPhoneNumber(pNum ?? '')) {
       return 'This is not a valid phone number.';
     }
     return null;
   }
 
-  validateEmail(dynamic? pNum) {
+  validateEmail(dynamic pNum) {
     if (!GetUtils.isEmail(pNum ?? '')) {
       return 'This is not a valid phone number.';
     }
     return null;
   }
 
-  validateRequiredField(dynamic? text) {
+  validateRequiredField(dynamic text) {
     if (GetUtils.isNullOrBlank(text ?? " ") == true) {
       return "This is a required field";
     }
@@ -41,5 +42,15 @@ class InputController extends GetxController {
         backgroundColor: Colors.red,
       );
     }
+  }
+}
+
+class FilePickerController extends GetxController {
+  Rx<FilePickerResult?> result = Rx<FilePickerResult?>(null);
+
+  void pickFile() async {
+    FilePickerResult? pickedResult = await FilePicker.platform.pickFiles();
+    result.value = pickedResult;
+    print(result.value);
   }
 }

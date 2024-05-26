@@ -81,7 +81,7 @@ class StepperController extends GetxController {
   }
 }
 
-class StatelessStepper extends StatelessWidget {
+class OnboardingStepper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final StepperController controller = Get.put(StepperController());

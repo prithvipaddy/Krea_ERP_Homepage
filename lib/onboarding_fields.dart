@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:erp_homepage/onboarding_controller.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:animated_custom_dropdown/custom_dropdown.dart';
@@ -69,11 +72,9 @@ class TextEntryBox extends StatelessWidget {
     super.key,
     required this.boxName,
     required this.requiredBox,
-    required this.validator,
   });
   final String boxName;
   final bool requiredBox;
-  final String? Function(String?)? validator;
 
   final InputController controller = Get.find<InputController>();
 
@@ -86,7 +87,7 @@ class TextEntryBox extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           requiredBox ? Text("$boxName*") : Text(boxName),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           TextFormField(
@@ -99,6 +100,75 @@ class TextEntryBox extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide(color: Colors.indigo))),
             validator: (text) => controller.validateRequiredField(text),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class FilePickerBox extends StatelessWidget {
+  FilePickerBox({
+    super.key,
+    required this.boxName,
+    required this.requiredBox,
+  });
+  final String boxName;
+  final bool requiredBox;
+  final FilePickerController controller = Get.find<FilePickerController>();
+
+  getFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles();
+
+    if (result != null) {
+      File file = File(result.files.single.path!);
+      return file;
+    } else {
+      // User canceled the picker
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 200,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          requiredBox ? Text("$boxName*") : Text(boxName),
+          const SizedBox(
+            height: 10,
+          ),
+          Obx(
+            () => GestureDetector(
+              onTap: controller.pickFile,
+              child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.black)),
+                height: 57, // !!! could cause problems,
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      () {
+                        if (controller.result.value == null) {
+                          return const Text(
+                            "Only pdf,jpg",
+                            style: TextStyle(color: Colors.grey),
+                          );
+                        } else {
+                          return Text(
+                              controller.result.value!.files.first.name);
+                        }
+                      }(),
+                      const Icon(Icons.upload_file_outlined)
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ),
         ],
       ),
