@@ -20,59 +20,69 @@ class OnboardingForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Form(
-          key: controller.formKey,
-          child: GridView(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              crossAxisSpacing: 50,
-              mainAxisSpacing: 5,
-            ),
-            children: [
-              TextEntryBox(
-                boxName: "First name",
-                requiredBox: true,
-                validator: (pNum) => controller.validatePhoneNum(pNum),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: Colors.black),
+          color: Colors.white,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Form(
+            key: controller.formKey,
+            child: GridView(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 3,
+                crossAxisSpacing: 50,
+                mainAxisSpacing: 5,
               ),
-              TextEntryBox(
-                boxName: "Last name",
-                requiredBox: false,
-                validator: (val) => controller.validateRequiredField(val),
-              ),
-              Dropdown(
-                boxName: "Gender",
-                requiredBox: true,
-                items: [1, 2, 3],
-              ),
-              for (int i = 0; i < 10; i++)
+              children: [
                 TextEntryBox(
-                  boxName: "Box $i",
+                  boxName: "First name",
                   requiredBox: true,
+                  validator: (pNum) => controller.validatePhoneNum(pNum),
+                ),
+                TextEntryBox(
+                  boxName: "Last name",
+                  requiredBox: false,
                   validator: (val) => controller.validateRequiredField(val),
                 ),
-              Dropdown(boxName: "test", requiredBox: true, items: ["a", "b"]),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: const Color.fromARGB(255, 4, 85, 151),
+                Dropdown(
+                  boxName: "Gender",
+                  requiredBox: true,
+                  items: [1, 2, 3],
                 ),
-                width: 10,
-                height: 50,
-                child: InkWell(
-                  onTap: () {
-                    controller.onSave();
-                  },
-                  child: const Center(
-                    child: Text(
-                      "Save",
-                      style: TextStyle(color: Colors.white),
+                for (int i = 0; i < 10; i++)
+                  TextEntryBox(
+                    boxName: "Box $i",
+                    requiredBox: true,
+                    validator: (val) => controller.validateRequiredField(val),
+                  ),
+                Dropdown(boxName: "test", requiredBox: true, items: ["a", "b"]),
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: const Color.fromARGB(255, 4, 85, 151),
+                  ),
+                  width: 10,
+                  height: 50,
+                  child: InkWell(
+                    onTap: () {
+                      controller.onSave();
+                    },
+                    child: const Center(
+                      child: Text(
+                        "Save",
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),

@@ -28,11 +28,7 @@ class MainApp extends StatelessWidget {
       // home: jsonSidebar(
       //   section: OnboardingForm(),
       // ),
-      home: Container(
-        width: MediaQuery.of(context).size.width,
-        // height: MediaQuery.of(context).size.height,
-        child: StatelessStepper(),
-      ),
+      home: StatelessStepper(),
     );
   }
 }

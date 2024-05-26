@@ -39,7 +39,9 @@ class WelcomeCard extends StatelessWidget {
                       Text(
                         "Welcome, $name",
                         style: const TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold),
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       const Icon(Icons.waving_hand),
                     ],
