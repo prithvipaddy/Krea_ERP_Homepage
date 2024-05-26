@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'dart:io';
 import 'dart:convert';
 import 'welcome_card.dart';
@@ -28,6 +29,9 @@ class MainApp extends StatelessWidget {
       // home: jsonSidebar(
       //   section: OnboardingForm(),
       // ),
+      theme: ThemeData(
+          textTheme:
+              GoogleFonts.urbanistTextTheme(Theme.of(context).textTheme)),
       home: StatelessStepper(),
     );
   }

@@ -2,6 +2,7 @@ import 'package:erp_homepage/onboarding_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:animated_custom_dropdown/custom_dropdown.dart';
+import 'package:file_picker/file_picker.dart';
 
 class Dropdown extends StatelessWidget {
   Dropdown({
