@@ -148,7 +148,7 @@ class FilePickerBox extends StatelessWidget {
                     border: Border.all(color: Colors.black)),
                 height: 57, // !!! could cause problems,
                 child: Padding(
-                  padding: EdgeInsets.all(8.0),
+                  padding: EdgeInsets.all(12.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

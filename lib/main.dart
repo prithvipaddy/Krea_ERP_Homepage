@@ -32,7 +32,7 @@ class MainApp extends StatelessWidget {
       theme: ThemeData(
           textTheme:
               GoogleFonts.urbanistTextTheme(Theme.of(context).textTheme)),
-      home: OnboardingStepper(),
+      home: Stepper2(),
     );
   }
 }

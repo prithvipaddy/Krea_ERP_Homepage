@@ -15,6 +15,7 @@ dependencies:
   animated_custom_dropdown: ^3.0.0
   google_fonts: ^6.2.1
   file_picker: ^8.0.3
+  easy_stepper: ^0.8.5
 
 dev_dependencies:
   flutter_test:
