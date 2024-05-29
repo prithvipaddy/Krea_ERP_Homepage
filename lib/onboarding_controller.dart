@@ -19,7 +19,7 @@ class InputController extends GetxController {
     return null;
   }
 
-  validateRequiredField(dynamic text) {
+  String? validateRequiredField(dynamic text) {
     if (GetUtils.isNullOrBlank(text ?? " ") == true) {
       return "This is a required field";
     }

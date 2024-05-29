@@ -1,4 +1,5 @@
 import 'package:erp_homepage/onboarding_fields.dart';
+import 'package:erp_homepage/onboarding_stepper.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 
@@ -14,57 +15,18 @@ class OnboardingScreen extends StatelessWidget {
 }
 
 class OnboardingForm extends StatelessWidget {
-  OnboardingForm({super.key});
+  OnboardingForm({
+    super.key,
+    required this.pageFields,
+  });
   // final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final inputController = Get.put(InputController());
-  final filePickController = Get.put(FilePickerController());
-  List<Widget> getPageFields() {
-    return [
-      TextEntryBox(
-        boxName: "First name",
-        requiredBox: true,
-      ),
-      TextEntryBox(
-        boxName: "Last name",
-        requiredBox: false,
-      ),
-      Dropdown(
-        boxName: "Gender",
-        requiredBox: true,
-        items: [1, 2, 3],
-      ),
-      for (int i = 0; i < 10; i++)
-        TextEntryBox(
-          boxName: "Box $i",
-          requiredBox: true,
-        ),
-      Dropdown(boxName: "test", requiredBox: true, items: ["a", "b"]),
-      FilePickerBox(boxName: "file pick test", requiredBox: true),
-      Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-          color: const Color.fromARGB(255, 4, 85, 151),
-        ),
-        width: 10,
-        height: 50,
-        child: InkWell(
-          onTap: () {
-            inputController.onSave();
-          },
-          child: const Center(
-            child: Text(
-              "Save",
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
-        ),
-      ),
-    ];
-  }
+  // final filePickController = Get.put(FilePickerController());
+  final stepController = Get.find<StepperController>();
+  final List<Widget> pageFields;
 
   @override
   Widget build(BuildContext context) {
-    final pageFields = getPageFields();
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -80,12 +42,152 @@ class OnboardingForm extends StatelessWidget {
             key: inputController.formKey,
             child: SingleChildScrollView(
               child: Column(
-                // gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                //   crossAxisCount: 3,
-                //   crossAxisSpacing: 50,
-                //   mainAxisSpacing: 5,
-                // ),
-                children: pageFields,
+                children: [
+                  for (int i = 0; i < pageFields.length; i = i + 3)
+                    () {
+                      if (pageFields.length - i > 2) {
+                        return Container(
+                          height: 200,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Expanded(
+                                  child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: pageFields[i],
+                              )),
+                              Expanded(
+                                  child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: pageFields[i + 1],
+                              )),
+                              Expanded(
+                                  child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: pageFields[i + 2],
+                              )),
+                            ],
+                          ),
+                        );
+                      } else if (pageFields.length - i > 1) {
+                        return Container(
+                          height: 200,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Expanded(
+                                  child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: pageFields[i],
+                              )),
+                              Expanded(
+                                  child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: pageFields[i + 1],
+                              )),
+                              const Expanded(
+                                  child: Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: SizedBox(),
+                              )),
+                            ],
+                          ),
+                        );
+                      } else {
+                        return Container(
+                          height: 200,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Expanded(
+                                  child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: pageFields[i],
+                              )),
+                              const Expanded(
+                                  child: Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: SizedBox(),
+                              )),
+                              const Expanded(
+                                  child: Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: SizedBox(),
+                              )),
+                            ],
+                          ),
+                        );
+                      }
+                    }(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: const Color.fromARGB(255, 4, 85, 151),
+                        ),
+                        width: 150,
+                        height: 50,
+                        child: InkWell(
+                          onTap: () {
+                            inputController.onSave();
+                          },
+                          child: const Center(
+                            child: Text(
+                              "Save as Draft",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: const Color.fromARGB(255, 4, 85, 151),
+                        ),
+                        width: 150,
+                        height: 50,
+                        child: InkWell(
+                          onTap: () {
+                            stepController.previousStep();
+                          },
+                          child: const Center(
+                            child: Text(
+                              "Previous",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: const Color.fromARGB(255, 4, 85, 151),
+                        ),
+                        width: 150,
+                        height: 50,
+                        child: InkWell(
+                          onTap: () {
+                            stepController.nextStep();
+                          },
+                          child: const Center(
+                            child: Text(
+                              "Next",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ),

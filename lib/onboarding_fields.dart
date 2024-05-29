@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:animated_custom_dropdown/custom_dropdown.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 
 class Dropdown extends StatelessWidget {
   Dropdown({
@@ -26,7 +27,7 @@ class Dropdown extends StatelessWidget {
       children: [
         requiredBox ? Text("$boxName*") : Text(boxName),
         SizedBox(
-          height: 14,
+          height: 14, // !!! could cause problems
         ),
         CustomDropdown(
           items: items,
@@ -81,7 +82,7 @@ class TextEntryBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      //width: MediaQuery.of(context).size.width / 3,
+      width: MediaQuery.of(context).size.width / 3,
       height: 200,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,7 +100,12 @@ class TextEntryBox extends StatelessWidget {
                 focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide: BorderSide(color: Colors.indigo))),
-            validator: (text) => controller.validateRequiredField(text),
+            validator: (text) {
+              if (requiredBox) {
+                controller.validateRequiredField(text);
+              }
+              return null;
+            },
           ),
         ],
       ),
@@ -131,6 +137,7 @@ class FilePickerBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: MediaQuery.of(context).size.width / 3,
       height: 200,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -170,6 +177,44 @@ class FilePickerBox extends StatelessWidget {
               ),
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+class PhoneBox extends StatelessWidget {
+  PhoneBox({super.key, required this.boxName, required this.requiredBox});
+
+  final String boxName;
+  final bool requiredBox;
+
+  final InputController controller = Get.find<InputController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width / 3,
+      height: 200,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          requiredBox ? Text("$boxName*") : Text(boxName),
+          const SizedBox(
+            height: 10,
+          ),
+          IntlPhoneField(
+            decoration: const InputDecoration(
+              labelText: 'Phone Number',
+              border: OutlineInputBorder(
+                borderSide: BorderSide(),
+              ),
+            ),
+            initialCountryCode: 'IN',
+            onChanged: (phone) {
+              print(phone.completeNumber);
+            },
+          )
         ],
       ),
     );
