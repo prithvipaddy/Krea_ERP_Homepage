@@ -37,7 +37,13 @@ class MainApp extends StatelessWidget {
         //   section: Stepper2(),
         // ),
         home: Scaffold(
-          body: UpcomingSchedule(),
+          body: Center(
+            child: Container(
+              width: MediaQuery.of(context).size.width / 5,
+              height: MediaQuery.of(context).size.height / 4,
+              child: const UpcomingSchedule(),
+            ),
+          ),
         ));
   }
 }
