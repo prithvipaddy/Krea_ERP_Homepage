@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 
 class ScheduleController extends GetxController {
   List<ScheduleItem> items = [];
+  bool addingEvent = false;
+
   @override
   void onInit() async {
     super.onInit();
@@ -19,12 +21,7 @@ class ScheduleController extends GetxController {
   }
 
   void addEvent() {
-    items.add(ScheduleItem(
-        title: "title",
-        date: "date",
-        description: "description",
-        name: "name",
-        time: "time"));
+    addingEvent = true;
     update();
   }
 }

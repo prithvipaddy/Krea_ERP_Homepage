@@ -43,7 +43,7 @@ class MainApp extends StatelessWidget {
             child: Container(
               width: MediaQuery.of(context).size.width / 4,
               height: 600,
-              child: const UpcomingSchedule(),
+              child: const AddScheduleItem(),
             ),
           ),
         ));

@@ -1,6 +1,7 @@
 import 'package:erp_homepage/home_upcomingschedule/controller.dart';
 import 'package:erp_homepage/home_upcomingschedule/modal.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class UpcomingSchedule extends GetView<ScheduleController> {
@@ -123,6 +124,47 @@ class ScheduleItemCard extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class AddScheduleItem extends StatelessWidget {
+  const AddScheduleItem({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          "Enter the details of the event to be added",
+          style: TextStyle(fontSize: 16),
+        ),
+        const TextField(
+            decoration: InputDecoration(hintText: "Enter the event title")),
+        const TextField(
+            decoration: InputDecoration(hintText: "Enter the date")),
+        const TextField(
+            decoration: InputDecoration(hintText: "Enter the time")),
+        const TextField(
+            decoration: InputDecoration(hintText: "Enter a description")),
+        const TextField(
+            decoration:
+                InputDecoration(hintText: "Enter the other participants")),
+        const SizedBox(
+          height: 10,
+        ),
+        Align(
+          alignment: Alignment.centerRight,
+          child: ElevatedButton(
+            onPressed: () {},
+            style: const ButtonStyle(
+                backgroundColor:
+                    MaterialStatePropertyAll(Color.fromARGB(255, 22, 39, 189))),
+            child: const Text("Add Event"),
+          ),
+        )
+      ],
     );
   }
 }
