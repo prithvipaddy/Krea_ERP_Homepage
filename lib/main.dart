@@ -1,5 +1,6 @@
 // ignore_for_file: camel_case_types, non_constant_identifier_names
 
+import 'package:erp_homepage/home_upcomingschedule/controller.dart';
 import 'package:erp_homepage/home_upcomingschedule/view.dart';
 import 'package:erp_homepage/onboarding.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,6 +17,7 @@ import 'onboarding_stepper.dart';
 // import 'icons.dart';
 
 void main() {
+  Get.put(ScheduleController());
   runApp(const MainApp());
 }
 
@@ -39,8 +41,8 @@ class MainApp extends StatelessWidget {
         home: Scaffold(
           body: Center(
             child: Container(
-              width: MediaQuery.of(context).size.width / 5,
-              height: MediaQuery.of(context).size.height / 4,
+              width: MediaQuery.of(context).size.width / 4,
+              height: 600,
               child: const UpcomingSchedule(),
             ),
           ),
