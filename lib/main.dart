@@ -1,5 +1,6 @@
 // ignore_for_file: camel_case_types, non_constant_identifier_names
 
+import 'package:erp_homepage/home_upcomingschedule/view.dart';
 import 'package:erp_homepage/onboarding.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -26,16 +27,18 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      // home: jsonSidebar(
-      //   section: OnboardingForm(),
-      // ),
-      theme: ThemeData(
-          textTheme:
-              GoogleFonts.urbanistTextTheme(Theme.of(context).textTheme)),
-      home: jsonSidebar(
-        section: Stepper2(),
-      ),
-    );
+        // home: jsonSidebar(
+        //   section: OnboardingForm(),
+        // ),
+        theme: ThemeData(
+            textTheme:
+                GoogleFonts.urbanistTextTheme(Theme.of(context).textTheme)),
+        // home: jsonSidebar(
+        //   section: Stepper2(),
+        // ),
+        home: Scaffold(
+          body: UpcomingSchedule(),
+        ));
   }
 }
 

@@ -7,7 +7,7 @@ import 'package:easy_stepper/easy_stepper.dart';
 import 'onboarding_fields.dart';
 
 class StepperController extends GetxController {
-  var currentStep = 0.obs;
+  int currentStep = 0;
 
   // List<Step> steps() {
   //   return [
@@ -69,18 +69,21 @@ class StepperController extends GetxController {
   // }
 
   void setStep(int step) {
-    currentStep.value = step;
+    currentStep = step;
+    update();
   }
 
   void nextStep() {
-    if (currentStep.value < 8) {
-      currentStep.value++;
+    if (currentStep < 8) {
+      currentStep++;
+      update();
     }
   }
 
   void previousStep() {
-    if (currentStep.value > 0) {
-      currentStep.value--;
+    if (currentStep > 0) {
+      currentStep--;
+      update();
     }
   }
 }
@@ -131,8 +134,8 @@ class Stepper2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Obx(
-        () => Column(
+      body: GetBuilder<StepperController>(
+        builder: (controller) => Column(
           children: [
             Container(
               height: MediaQuery.of(context).size.height / 5,
@@ -140,7 +143,7 @@ class Stepper2 extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(24.0),
                 child: EasyStepper(
-                  activeStep: controller.currentStep.value,
+                  activeStep: controller.currentStep,
                   lineStyle: const LineStyle(
                     lineLength: 100,
                     lineSpace: 0,
@@ -162,10 +165,10 @@ class Stepper2 extends StatelessWidget {
                         backgroundColor: Colors.grey,
                         child: CircleAvatar(
                             radius: 17,
-                            backgroundColor: controller.currentStep.value >= 0
+                            backgroundColor: controller.currentStep >= 0
                                 ? Color.fromARGB(255, 30, 109, 255)
                                 : Colors.grey,
-                            child: controller.currentStep.value >= 1
+                            child: controller.currentStep >= 1
                                 ? const Center(
                                     child: Icon(
                                     Icons.done,
@@ -193,10 +196,10 @@ class Stepper2 extends StatelessWidget {
                         backgroundColor: Colors.grey,
                         child: CircleAvatar(
                             radius: 17,
-                            backgroundColor: controller.currentStep.value >= 1
+                            backgroundColor: controller.currentStep >= 1
                                 ? Color.fromARGB(255, 30, 109, 255)
                                 : Colors.grey,
-                            child: controller.currentStep.value >= 2
+                            child: controller.currentStep >= 2
                                 ? const Center(
                                     child: Icon(
                                     Icons.done,
@@ -224,10 +227,10 @@ class Stepper2 extends StatelessWidget {
                         backgroundColor: Colors.grey,
                         child: CircleAvatar(
                             radius: 17,
-                            backgroundColor: controller.currentStep.value >= 2
+                            backgroundColor: controller.currentStep >= 2
                                 ? Color.fromARGB(255, 30, 109, 255)
                                 : Colors.grey,
-                            child: controller.currentStep.value >= 3
+                            child: controller.currentStep >= 3
                                 ? const Center(
                                     child: Icon(
                                     Icons.done,
@@ -255,10 +258,10 @@ class Stepper2 extends StatelessWidget {
                         backgroundColor: Colors.grey,
                         child: CircleAvatar(
                             radius: 17,
-                            backgroundColor: controller.currentStep.value >= 3
+                            backgroundColor: controller.currentStep >= 3
                                 ? Color.fromARGB(255, 30, 109, 255)
                                 : Colors.grey,
-                            child: controller.currentStep.value >= 4
+                            child: controller.currentStep >= 4
                                 ? const Center(
                                     child: Icon(
                                     Icons.done,
@@ -286,10 +289,10 @@ class Stepper2 extends StatelessWidget {
                         backgroundColor: Colors.grey,
                         child: CircleAvatar(
                             radius: 17,
-                            backgroundColor: controller.currentStep.value >= 4
+                            backgroundColor: controller.currentStep >= 4
                                 ? Color.fromARGB(255, 30, 109, 255)
                                 : Colors.grey,
-                            child: controller.currentStep.value >= 5
+                            child: controller.currentStep >= 5
                                 ? const Center(
                                     child: Icon(
                                     Icons.done,
@@ -317,10 +320,10 @@ class Stepper2 extends StatelessWidget {
                         backgroundColor: Colors.grey,
                         child: CircleAvatar(
                             radius: 17,
-                            backgroundColor: controller.currentStep.value >= 5
+                            backgroundColor: controller.currentStep >= 5
                                 ? Color.fromARGB(255, 30, 109, 255)
                                 : Colors.grey,
-                            child: controller.currentStep.value >= 6
+                            child: controller.currentStep >= 6
                                 ? const Center(
                                     child: Icon(
                                     Icons.done,
@@ -348,10 +351,10 @@ class Stepper2 extends StatelessWidget {
                         backgroundColor: Colors.grey,
                         child: CircleAvatar(
                             radius: 17,
-                            backgroundColor: controller.currentStep.value >= 6
+                            backgroundColor: controller.currentStep >= 6
                                 ? Color.fromARGB(255, 30, 109, 255)
                                 : Colors.grey,
-                            child: controller.currentStep.value >= 7
+                            child: controller.currentStep >= 7
                                 ? const Center(
                                     child: Icon(
                                     Icons.done,
@@ -379,10 +382,10 @@ class Stepper2 extends StatelessWidget {
                         backgroundColor: Colors.grey,
                         child: CircleAvatar(
                             radius: 17,
-                            backgroundColor: controller.currentStep.value >= 7
+                            backgroundColor: controller.currentStep >= 7
                                 ? Color.fromARGB(255, 30, 109, 255)
                                 : Colors.grey,
-                            child: controller.currentStep.value >= 8
+                            child: controller.currentStep >= 8
                                 ? const Center(
                                     child: Icon(
                                     Icons.done,
@@ -410,10 +413,10 @@ class Stepper2 extends StatelessWidget {
                         backgroundColor: Colors.grey,
                         child: CircleAvatar(
                             radius: 17,
-                            backgroundColor: controller.currentStep.value >= 8
+                            backgroundColor: controller.currentStep >= 8
                                 ? Color.fromARGB(255, 30, 109, 255)
                                 : Colors.grey,
-                            child: controller.currentStep.value >= 9
+                            child: controller.currentStep >= 9
                                 ? const Center(
                                     child: Icon(
                                     Icons.done,
@@ -442,7 +445,7 @@ class Stepper2 extends StatelessWidget {
             ),
             Expanded(
               child: () {
-                if (controller.currentStep.value == 0) {
+                if (controller.currentStep == 0) {
                   return OnboardingForm(
                     pageFields: [
                       TextEntryBox(
@@ -455,7 +458,7 @@ class Stepper2 extends StatelessWidget {
                       ),
                     ],
                   );
-                } else if (controller.currentStep.value == 1) {
+                } else if (controller.currentStep == 1) {
                   return OnboardingForm(
                     pageFields: [
                       for (int i = 0; i < 10; i++)
@@ -465,7 +468,7 @@ class Stepper2 extends StatelessWidget {
                         ),
                     ],
                   );
-                } else if (controller.currentStep.value == 2) {
+                } else if (controller.currentStep == 2) {
                   return OnboardingForm(
                     pageFields: [
                       Dropdown(
