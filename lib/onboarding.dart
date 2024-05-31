@@ -1,4 +1,3 @@
-import 'package:erp_homepage/onboarding_fields.dart';
 import 'package:erp_homepage/onboarding_stepper.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +45,7 @@ class OnboardingForm extends StatelessWidget {
                   for (int i = 0; i < pageFields.length; i = i + 3)
                     () {
                       if (pageFields.length - i > 2) {
-                        return Container(
+                        return SizedBox(
                           height: 200,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -70,7 +69,7 @@ class OnboardingForm extends StatelessWidget {
                           ),
                         );
                       } else if (pageFields.length - i > 1) {
-                        return Container(
+                        return SizedBox(
                           height: 200,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -94,7 +93,7 @@ class OnboardingForm extends StatelessWidget {
                           ),
                         );
                       } else {
-                        return Container(
+                        return SizedBox(
                           height: 200,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

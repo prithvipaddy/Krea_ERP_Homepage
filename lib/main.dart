@@ -1,23 +1,27 @@
 // ignore_for_file: camel_case_types, non_constant_identifier_names
+<<<<<<< HEAD
+=======
 
 import 'package:erp_homepage/home_upcomingschedule/controller.dart';
 import 'package:erp_homepage/home_upcomingschedule/view.dart';
 import 'package:erp_homepage/onboarding.dart';
 import 'package:flutter/cupertino.dart';
+>>>>>>> b910631e1219a637e7eb5ac136e2b27204eebcb5
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:io';
 import 'dart:convert';
-import 'welcome_card.dart';
-import 'onboarding_stepper.dart';
+import 'xget.dart';
 
 // import 'icons.dart';
 
 void main() {
+<<<<<<< HEAD
+  Get.put(AwesomeController());
+=======
   Get.put(ScheduleController());
+>>>>>>> b910631e1219a637e7eb5ac136e2b27204eebcb5
   runApp(const MainApp());
 }
 
@@ -29,6 +33,19 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+<<<<<<< HEAD
+      // home: jsonSidebar(
+      //   section: OnboardingForm(),
+      // ),
+      theme: ThemeData(
+          textTheme:
+              GoogleFonts.urbanistTextTheme(Theme.of(context).textTheme)),
+      // home: jsonSidebar(
+      //   section: Stepper2(),
+      // ),
+      home: AwesomeView(),
+    );
+=======
         // home: jsonSidebar(
         //   section: OnboardingForm(),
         // ),
@@ -47,6 +64,7 @@ class MainApp extends StatelessWidget {
             ),
           ),
         ));
+>>>>>>> b910631e1219a637e7eb5ac136e2b27204eebcb5
   }
 }
 
@@ -260,7 +278,7 @@ class _jsonSidebarState extends State<jsonSidebar> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           const Text("Dashboard"),
-                          Container(
+                          SizedBox(
                             // Search box
                             width: 150,
                             child: TextField(
