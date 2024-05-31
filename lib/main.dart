@@ -1,4 +1,12 @@
 // ignore_for_file: camel_case_types, non_constant_identifier_names
+<<<<<<< HEAD
+=======
+
+import 'package:erp_homepage/home_upcomingschedule/controller.dart';
+import 'package:erp_homepage/home_upcomingschedule/view.dart';
+import 'package:erp_homepage/onboarding.dart';
+import 'package:flutter/cupertino.dart';
+>>>>>>> b910631e1219a637e7eb5ac136e2b27204eebcb5
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,7 +17,11 @@ import 'xget.dart';
 // import 'icons.dart';
 
 void main() {
+<<<<<<< HEAD
   Get.put(AwesomeController());
+=======
+  Get.put(ScheduleController());
+>>>>>>> b910631e1219a637e7eb5ac136e2b27204eebcb5
   runApp(const MainApp());
 }
 
@@ -21,6 +33,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+<<<<<<< HEAD
       // home: jsonSidebar(
       //   section: OnboardingForm(),
       // ),
@@ -32,6 +45,26 @@ class MainApp extends StatelessWidget {
       // ),
       home: AwesomeView(),
     );
+=======
+        // home: jsonSidebar(
+        //   section: OnboardingForm(),
+        // ),
+        theme: ThemeData(
+            textTheme:
+                GoogleFonts.urbanistTextTheme(Theme.of(context).textTheme)),
+        // home: jsonSidebar(
+        //   section: Stepper2(),
+        // ),
+        home: Scaffold(
+          body: Center(
+            child: Container(
+              width: MediaQuery.of(context).size.width / 4,
+              height: 600,
+              child: const UpcomingSchedule(),
+            ),
+          ),
+        ));
+>>>>>>> b910631e1219a637e7eb5ac136e2b27204eebcb5
   }
 }
 

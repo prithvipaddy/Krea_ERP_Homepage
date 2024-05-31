@@ -102,7 +102,7 @@ class TextEntryBox extends StatelessWidget {
                     borderSide: BorderSide(color: Colors.indigo))),
             validator: (text) {
               if (requiredBox) {
-                controller.validateRequiredField(text);
+                return controller.validateRequiredField(text);
               }
               return null;
             },

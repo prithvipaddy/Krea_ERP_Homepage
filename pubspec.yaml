@@ -17,6 +17,7 @@ dependencies:
   file_picker: ^8.0.3
   easy_stepper: ^0.8.5
   intl_phone_field: ^3.2.0
+  responsive_framework: ^1.4.0
 
 dev_dependencies:
   flutter_test:
@@ -26,5 +27,5 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - resources/jsonformatter.txt
+    - resources/
 

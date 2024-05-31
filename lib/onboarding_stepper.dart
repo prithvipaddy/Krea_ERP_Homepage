@@ -7,7 +7,7 @@ import 'package:easy_stepper/easy_stepper.dart';
 import 'onboarding_fields.dart';
 
 class StepperController extends GetxController {
-  var currentStep = 0.obs;
+  int currentStep = 0;
 
   // List<Step> steps() {
   //   return [
@@ -68,19 +68,34 @@ class StepperController extends GetxController {
   //   ];
   // }
 
+<<<<<<< HEAD
   // void setStep(int step) {
   //   currentStep = step.;
   // }
+=======
+  void setStep(int step) {
+    currentStep = step;
+    update();
+  }
+>>>>>>> b910631e1219a637e7eb5ac136e2b27204eebcb5
 
   void nextStep() {
     if (currentStep < 8) {
       currentStep++;
+<<<<<<< HEAD
+=======
+      update();
+>>>>>>> b910631e1219a637e7eb5ac136e2b27204eebcb5
     }
   }
 
   void previousStep() {
     if (currentStep > 0) {
       currentStep--;
+<<<<<<< HEAD
+=======
+      update();
+>>>>>>> b910631e1219a637e7eb5ac136e2b27204eebcb5
     }
   }
 }
@@ -138,6 +153,7 @@ class Stepper2 extends GetView<InputController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+<<<<<<< HEAD
       body: Column(
         children: [
           SizedBox(
@@ -154,6 +170,314 @@ class Stepper2 extends GetView<InputController> {
                   lineType: LineType.normal,
                   defaultLineColor: Colors.grey,
                   finishedLineColor: Color.fromARGB(255, 30, 109, 255),
+=======
+      body: GetBuilder<StepperController>(
+        builder: (controller) => Column(
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height / 5,
+              width: MediaQuery.of(context).size.width,
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: EasyStepper(
+                  activeStep: controller.currentStep,
+                  lineStyle: const LineStyle(
+                    lineLength: 100,
+                    lineSpace: 0,
+                    lineThickness: 4,
+                    lineType: LineType.normal,
+                    defaultLineColor: Colors.grey,
+                    finishedLineColor: Color.fromARGB(255, 30, 109, 255),
+                  ),
+                  activeStepTextColor: Colors.black87,
+                  finishedStepTextColor: Colors.black87,
+                  internalPadding: 48,
+                  showLoadingAnimation: false,
+                  stepRadius: 18,
+                  showStepBorder: false,
+                  steps: [
+                    EasyStep(
+                      customStep: CircleAvatar(
+                        radius: 18,
+                        backgroundColor: Colors.grey,
+                        child: CircleAvatar(
+                            radius: 17,
+                            backgroundColor: controller.currentStep >= 0
+                                ? Color.fromARGB(255, 30, 109, 255)
+                                : Colors.grey,
+                            child: controller.currentStep >= 1
+                                ? const Center(
+                                    child: Icon(
+                                    Icons.done,
+                                    color: Colors.white,
+                                  ))
+                                : const Center(
+                                    child: Text(
+                                    "1",
+                                    style: TextStyle(color: Colors.white),
+                                  ))),
+                      ),
+                      customTitle: Container(
+                        width: MediaQuery.of(context).size.width / 10,
+                        child: const Center(
+                          child: Text(
+                            'Personal Details',
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                    ),
+                    EasyStep(
+                      customStep: CircleAvatar(
+                        radius: 18,
+                        backgroundColor: Colors.grey,
+                        child: CircleAvatar(
+                            radius: 17,
+                            backgroundColor: controller.currentStep >= 1
+                                ? Color.fromARGB(255, 30, 109, 255)
+                                : Colors.grey,
+                            child: controller.currentStep >= 2
+                                ? const Center(
+                                    child: Icon(
+                                    Icons.done,
+                                    color: Colors.white,
+                                  ))
+                                : const Center(
+                                    child: Text(
+                                    "2",
+                                    style: TextStyle(color: Colors.white),
+                                  ))),
+                      ),
+                      customTitle: Container(
+                        width: MediaQuery.of(context).size.width / 10,
+                        child: const Center(
+                          child: Text(
+                            'Contact Details',
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                    ),
+                    EasyStep(
+                      customStep: CircleAvatar(
+                        radius: 18,
+                        backgroundColor: Colors.grey,
+                        child: CircleAvatar(
+                            radius: 17,
+                            backgroundColor: controller.currentStep >= 2
+                                ? Color.fromARGB(255, 30, 109, 255)
+                                : Colors.grey,
+                            child: controller.currentStep >= 3
+                                ? const Center(
+                                    child: Icon(
+                                    Icons.done,
+                                    color: Colors.white,
+                                  ))
+                                : const Center(
+                                    child: Text(
+                                    "3",
+                                    style: TextStyle(color: Colors.white),
+                                  ))),
+                      ),
+                      customTitle: Container(
+                        width: MediaQuery.of(context).size.width / 10,
+                        child: const Center(
+                          child: Text(
+                            'Academic Details',
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                    ),
+                    EasyStep(
+                      customStep: CircleAvatar(
+                        radius: 18,
+                        backgroundColor: Colors.grey,
+                        child: CircleAvatar(
+                            radius: 17,
+                            backgroundColor: controller.currentStep >= 3
+                                ? Color.fromARGB(255, 30, 109, 255)
+                                : Colors.grey,
+                            child: controller.currentStep >= 4
+                                ? const Center(
+                                    child: Icon(
+                                    Icons.done,
+                                    color: Colors.white,
+                                  ))
+                                : const Center(
+                                    child: Text(
+                                    "4",
+                                    style: TextStyle(color: Colors.white),
+                                  ))),
+                      ),
+                      customTitle: Container(
+                        width: MediaQuery.of(context).size.width / 10,
+                        child: const Center(
+                          child: Text(
+                            'Health Information',
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                    ),
+                    EasyStep(
+                      customStep: CircleAvatar(
+                        radius: 18,
+                        backgroundColor: Colors.grey,
+                        child: CircleAvatar(
+                            radius: 17,
+                            backgroundColor: controller.currentStep >= 4
+                                ? Color.fromARGB(255, 30, 109, 255)
+                                : Colors.grey,
+                            child: controller.currentStep >= 5
+                                ? const Center(
+                                    child: Icon(
+                                    Icons.done,
+                                    color: Colors.white,
+                                  ))
+                                : const Center(
+                                    child: Text(
+                                    "5",
+                                    style: TextStyle(color: Colors.white),
+                                  ))),
+                      ),
+                      customTitle: Container(
+                        width: MediaQuery.of(context).size.width / 10,
+                        child: const Center(
+                          child: Text(
+                            'Insurance Details',
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                    ),
+                    EasyStep(
+                      customStep: CircleAvatar(
+                        radius: 18,
+                        backgroundColor: Colors.grey,
+                        child: CircleAvatar(
+                            radius: 17,
+                            backgroundColor: controller.currentStep >= 5
+                                ? Color.fromARGB(255, 30, 109, 255)
+                                : Colors.grey,
+                            child: controller.currentStep >= 6
+                                ? const Center(
+                                    child: Icon(
+                                    Icons.done,
+                                    color: Colors.white,
+                                  ))
+                                : const Center(
+                                    child: Text(
+                                    "6",
+                                    style: TextStyle(color: Colors.white),
+                                  ))),
+                      ),
+                      customTitle: Container(
+                        width: MediaQuery.of(context).size.width / 10,
+                        child: const Center(
+                          child: Text(
+                            'Undertakings and Consent (Student)',
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                    ),
+                    EasyStep(
+                      customStep: CircleAvatar(
+                        radius: 18,
+                        backgroundColor: Colors.grey,
+                        child: CircleAvatar(
+                            radius: 17,
+                            backgroundColor: controller.currentStep >= 6
+                                ? Color.fromARGB(255, 30, 109, 255)
+                                : Colors.grey,
+                            child: controller.currentStep >= 7
+                                ? const Center(
+                                    child: Icon(
+                                    Icons.done,
+                                    color: Colors.white,
+                                  ))
+                                : const Center(
+                                    child: Text(
+                                    "7",
+                                    style: TextStyle(color: Colors.white),
+                                  ))),
+                      ),
+                      customTitle: Container(
+                        width: MediaQuery.of(context).size.width / 10,
+                        child: const Center(
+                          child: Text(
+                            'Undertakings and Consent (Parents/Guardians)',
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                    ),
+                    EasyStep(
+                      customStep: CircleAvatar(
+                        radius: 18,
+                        backgroundColor: Colors.grey,
+                        child: CircleAvatar(
+                            radius: 17,
+                            backgroundColor: controller.currentStep >= 7
+                                ? Color.fromARGB(255, 30, 109, 255)
+                                : Colors.grey,
+                            child: controller.currentStep >= 8
+                                ? const Center(
+                                    child: Icon(
+                                    Icons.done,
+                                    color: Colors.white,
+                                  ))
+                                : const Center(
+                                    child: Text(
+                                    "8",
+                                    style: TextStyle(color: Colors.white),
+                                  ))),
+                      ),
+                      customTitle: Container(
+                        width: MediaQuery.of(context).size.width / 10,
+                        child: const Center(
+                          child: Text(
+                            'Preferences',
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                    ),
+                    EasyStep(
+                      customStep: CircleAvatar(
+                        radius: 18,
+                        backgroundColor: Colors.grey,
+                        child: CircleAvatar(
+                            radius: 17,
+                            backgroundColor: controller.currentStep >= 8
+                                ? Color.fromARGB(255, 30, 109, 255)
+                                : Colors.grey,
+                            child: controller.currentStep >= 9
+                                ? const Center(
+                                    child: Icon(
+                                    Icons.done,
+                                    color: Colors.white,
+                                  ))
+                                : const Center(
+                                    child: Text(
+                                    "9",
+                                    style: TextStyle(color: Colors.white),
+                                  ))),
+                      ),
+                      customTitle: Container(
+                        width: MediaQuery.of(context).size.width / 10,
+                        child: const Center(
+                          child: Text(
+                            'Student Declaration and Honor Pledge',
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                  onStepReached: (index) => controller.setStep(index),
+>>>>>>> b910631e1219a637e7eb5ac136e2b27204eebcb5
                 ),
                 activeStepTextColor: Colors.black87,
                 finishedStepTextColor: Colors.black87,
@@ -445,6 +769,7 @@ class Stepper2 extends GetView<InputController> {
                 onStepReached: (index) => setStep(index),
               ),
             ),
+<<<<<<< HEAD
           ),
           Expanded(
             child: () {
@@ -465,6 +790,13 @@ class Stepper2 extends GetView<InputController> {
                 return OnboardingForm(
                   pageFields: [
                     for (int i = 0; i < 10; i++)
+=======
+            Expanded(
+              child: () {
+                if (controller.currentStep == 0) {
+                  return OnboardingForm(
+                    pageFields: [
+>>>>>>> b910631e1219a637e7eb5ac136e2b27204eebcb5
                       TextEntryBox(
                         boxName: "Box $i",
                         requiredBox: true,
@@ -494,7 +826,41 @@ class Stepper2 extends GetView<InputController> {
                     ),
                     for (int i = 0; i < 10; i++)
                       TextEntryBox(
+<<<<<<< HEAD
                         boxName: "Box $i",
+=======
+                        boxName: "Last name",
+                        requiredBox: false,
+                      ),
+                    ],
+                  );
+                } else if (controller.currentStep == 1) {
+                  return OnboardingForm(
+                    pageFields: [
+                      for (int i = 0; i < 10; i++)
+                        TextEntryBox(
+                          boxName: "Box $i",
+                          requiredBox: true,
+                        ),
+                    ],
+                  );
+                } else if (controller.currentStep == 2) {
+                  return OnboardingForm(
+                    pageFields: [
+                      Dropdown(
+                          boxName: "test",
+                          requiredBox: true,
+                          items: ["a", "b"]),
+                      FilePickerBox(
+                          boxName: "file pick test", requiredBox: true),
+                    ],
+                  );
+                } else {
+                  return OnboardingForm(
+                    pageFields: [
+                      TextEntryBox(
+                        boxName: "First name",
+>>>>>>> b910631e1219a637e7eb5ac136e2b27204eebcb5
                         requiredBox: true,
                       ),
                     Dropdown(
